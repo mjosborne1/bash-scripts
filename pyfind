@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# finder: do a shallow search through python scripts ignoring common library folders
+#
+if [ $# -lt 1 ]; then
+   echo ""
+   echo "Usage: $0 search_term"
+   echo ""
+   exit 1
+fi
+find . -maxdepth 3 \
+ \( -name .venv -o -name __pycache__ -o -name '*.git' \) -prune -o \
+ -type f -exec grep -l "$1" {} \; -print
+

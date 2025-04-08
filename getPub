@@ -1,0 +1,31 @@
+#!/bin/bash
+# getPub.sh
+# This script downloads the latest version of the FHIR IG Publisher and copies it to the input-cache folder of each IG in the specified directory.
+# Usage: ./getPub.sh <directory>
+# Example: ./getPub.sh ~/Development/hl7au 
+
+
+pubsource=https://github.com/HL7/fhir-ig-publisher/releases/latest/download/
+publisher_jar=publisher.jar
+dlurl=$pubsource$publisher_jar
+if [[ "$#" == "1" ]]; then
+    igrootdir="$1"
+else
+    igrootdir="$HOME/Development/hl7au"
+fi 
+# Check if the directory exists
+if [ ! -d "$igrootdir" ]; then
+    echo "Directory $igrootdir does not exist."
+    exit 1
+fi
+igrootdir="$HOME/Development/hl7au"
+cd $igrootdir
+curl -L $dlurl -o "./publisher/$publisher_jar" --create-dirs
+
+## For each folder in $igrootdir, copy the publisher to input-cache
+for d in $(find . -maxdepth 1 -type d -name "mjo*"); do
+    d=$d/input-cache
+    mkdir -p "$d"
+    cp ./publisher/$publisher_jar "$d"
+    chmod +x "$d/$publisher_jar"
+done

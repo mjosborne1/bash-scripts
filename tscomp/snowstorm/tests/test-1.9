@@ -1,0 +1,43 @@
+API_URL="https://snowstorm.snomedtools.org/fhir"
+curl --location "$API_URL/CodeSystem/\$find-matches" \
+--header 'Content-Type: application/fhir+json' \
+-X POST \
+--data '{
+    "resourceType": "Parameters",
+    "parameter": [
+        {
+            "name": "system",
+            "valueUri": "http://snomed.info/sct"
+        },
+        {
+            "name": "exact",
+            "valueBoolean": false
+        },
+        {
+            "name": "property",
+            "part": [
+                {
+                    "name": "code",
+                    "valueCode": "116686009"
+                },
+                {
+                    "name": "value",
+                    "valueCode": "119332005"
+                }
+            ]
+        },        
+        {
+            "name": "property",
+            "part": [
+                {
+                    "name": "code",
+                    "valueCode": "260686004"
+                },
+                {
+                    "name": "value",
+                    "valueCode": "129265001"
+                }
+            ]
+        }
+    ]
+}'

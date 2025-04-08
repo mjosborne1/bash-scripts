@@ -1,0 +1,2 @@
+API_URL="https://snowstorm.snomedtools.org/fhir"
+curl --header 'Content-Type: application/fhir+json' --location "${API_URL}/ValueSet/\$expand?url=http%3A%2F%2Fsnomed.info%2Fsct%3Ffhir_vs%3Decl%2F(%3C%2064572001%20%7CDisease%7C%20%7B%7B%20term%20%3D%20%22heart%20att%22%20%7D%7D)" | jq

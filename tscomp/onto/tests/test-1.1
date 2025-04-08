@@ -1,0 +1,4 @@
+# Test 1.1 :  Asthma conditions current and historical
+API_URL=https://tx.ontoserver.csiro.au/fhir
+ curl -X GET  "$API_URL/ValueSet/$expand?url=http%3A%2F%2Fsnomed.info%2Fsct%3Ffhir_vs%3Decl%2F%3C%3C%20195967001" | jq
+

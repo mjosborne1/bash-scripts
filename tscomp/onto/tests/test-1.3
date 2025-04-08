@@ -1,0 +1,6 @@
+# Test 1.3 - Bilateral procedures
+API_URL=https://tx.ontoserver.csiro.au/fhir
+query="http://snomed.info/sct?fhir_vs=ecl/(< 71388002 : 405813007 = (*: 272741003= (24028007)), 405813007 = (*: 272741003= (7771000)))"
+encoded_query=$(jq -nr --arg v "$query" '$v|@uri')
+curl -X GET "$API_URL/ValueSet/\$expand?url=$encoded_query" -H "Accept: application/fhir+json" | jq
+

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Check if the correct number of arguments is provided
+if [ "$#" -ne 2 ]; then
+  echo "Usage: $0 <source_directory> <destination_directory>"
+  exit 1
+fi
+
+# Assign the arguments to variables
+src="$1"
+dest="$2"
+
+# The rsync command with exclusions
+rsync -av --exclude='temp' --exclude='.git' --exclude='node_modules' --exclude='output' --exclude='input-cache' "$src"/ "$dest"/
+
+echo "Successfully copied files from '$src' to '$dest', excluding temp, output, and input-cache."
+
+exit 0

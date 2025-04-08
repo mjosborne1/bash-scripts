@@ -1,0 +1,47 @@
+curl -X POST -H 'Content-Type: application/fhir+json' \
+     -H "Authorization: Bearer $token" \
+     "$API_URL/r4/serverEvaluation/fhir" \
+--data '{
+    "type": "batch",
+    "resourceType": "Bundle",
+    "entry": [
+        {
+            "request": {
+                "method": "POST",
+                "url": "CodeSystem/$lookup"
+            },
+            "resource": {
+                "resourceType": "Parameters",
+                "parameter": [
+                    {
+                        "valueUri": "http://loinc.org",
+                        "name": "system"
+                    },
+                    {
+                        "valueCode": "23245-4",
+                        "name": "code"
+                    }
+                ]
+            }
+        },
+        {
+            "resource": {
+                "parameter": [
+                    {
+                        "name": "system",
+                        "valueUri": "http://snomed.info/sct"
+                    },
+                    {
+                        "valueCode": "6142004",
+                        "name": "code"
+                    }
+                ],
+                "resourceType": "Parameters"
+            },
+            "request": {
+                "method": "POST",
+                "url": "CodeSystem/$lookup"
+            }
+        }
+    ]
+}'

@@ -1,0 +1,1 @@
+ curl -H "Authorization: Bearer $token" "$API_URL/r4/serverEvaluation/fhir/ValueSet/$expand?url=http%3A%2F%2Fsnomed.info%2Fsct%3Ffhir_vs%3Decl%2F(%20%3C%3C%20195967001%20%7CAsthma%7C%20)" | jq

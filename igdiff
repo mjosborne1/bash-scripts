@@ -1,0 +1,19 @@
+#!/bin/sh
+if [[ "$#" != "2" ]]; then
+   echo "usage: $0 oldurl newurl"
+   exit
+fi
+
+urlencode() {
+   python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1]))" "$1"
+}
+
+service="https://www5.aptest.com/standards/htmldiff/htmldiff.pl"
+oldurl=$(urlencode "$1")
+newurl=$(urlencode "$2")
+ohtml="$HOME/tmp/$$.html"
+echo "----------------------"
+echo "$ohtml"
+echo "----------------------"
+
+curl "$service?oldfile=$oldurl&newfile=$newurl" >| $ohtml

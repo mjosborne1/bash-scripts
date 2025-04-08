@@ -1,0 +1,5 @@
+# Test 1.2 : Diseases containing term "heart att"
+API_URL=https://demo.kodjin.com
+query="http://snomed.info/sct?fhir_vs=ecl/(< 64572001 |Disease| {{ term = \"heart att\" }})"
+encoded_query=$(jq -nr --arg v "$query" '$v|@uri')
+curl -X GET "$API_URL/ValueSet/\$expand?url=$encoded_query" -H "Accept: application/fhir+json" | jq

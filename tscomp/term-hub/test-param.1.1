@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Historical Asthma concepts + current
+eclDefV3="(<< 195967001 |Asthma| {{ + HISTORY-MIN }})"
+
+# V3 sct version URL
+version3="http://snomed.info/sct/32506021000036107/version/20240229"
+# V4 sct version URL
+version4="http://snomed.info/xsct/32506021000036107/version/20240229"
+curl --location 'https://r4.ontoserver.csiro.au/fhir/ValueSet/$expand' \
+--header 'Content-Type: application/fhir+json' \
+--data '{
+    "resourceType": "Parameters",
+    "parameter": [
+        {
+            "name": "valueSet",
+            "resource": {
+                "resourceType": "ValueSet",
+                "compose": {
+                    "include": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "version": "'"$version3"'", 
+                            "filter": [
+                                {
+                                    "property": "constraint",
+                                    "op": "=",
+                                    "value": "'"$eclDefV3"'"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}'
